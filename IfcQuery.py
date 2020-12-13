@@ -3,7 +3,7 @@ bl_info = {
     "author" : "Carlos Dias",
     "version" : (0, 1),
     "blender" : (2,80,0),
-    "location": "View3D > Add > Mesh > New Object",
+    "location": "View3D > My Addons",
     "description": "Execute queries in ifc files",
     "warning": "",
     "doc_url": "",
@@ -55,8 +55,8 @@ class WM_OT_ExecuteQuery(bpy.types.Operator):
         
             for obj in bpy.data.objects:
                 if obj.BIMObjectProperties.attributes[0].string_value in l:
-                    obj.select_set(True)
                     obj.hide_set(False)
+                    obj.select_set(True)
             
             if h:
                 bpy.ops.object.hide_view_set(unselected=True)
