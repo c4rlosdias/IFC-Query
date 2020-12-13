@@ -41,7 +41,7 @@ class WM_OT_ExecuteQuery(bpy.types.Operator):
     hide = bpy.props.BoolProperty(name = "Hide Unselect", default= False)
     
     def execute(self, context):
-        bpy.ops.object.hide_view_clear()
+        #bpy.ops.object.hide_view_clear()
         bpy.ops.object.select_all(action='DESELECT')
         
         h = self.hide
@@ -56,6 +56,7 @@ class WM_OT_ExecuteQuery(bpy.types.Operator):
             for obj in bpy.data.objects:
                 if obj.BIMObjectProperties.attributes[0].string_value in l:
                     obj.select_set(True)
+                    obj.hide_set(False)
             
             if h:
                 bpy.ops.object.hide_view_set(unselected=True)
