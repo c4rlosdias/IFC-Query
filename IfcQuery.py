@@ -50,18 +50,23 @@ class WM_OT_ExecuteQuery(bpy.types.Operator):
             
             selector = Selector()
             elements = selector.parse(ifc, self.text)
-
-            l = [e.GlobalId for e in elements]
-        
-            for obj in bpy.data.objects:
-                if obj.BIMObjectProperties.attributes[0].string_value in l:
-                    obj.hide_set(False)
-                    obj.select_set(True)
             
-            if h:
-                bpy.ops.object.hide_view_set(unselected=True)
+            if len(elements) > 0:
+ 
+                l = [e.GlobalId for e in elements]
+            
+                for obj in bpy.data.objects:
+                    if obj.BIMObjectProperties.attributes[0].string_value in l:
+                        obj.hide_set(False)
+                        obj.select_set(True)
+                
+                if h:
+                    bpy.ops.object.hide_view_set(unselected=True)
+            else:
+                self.report({"INFO"}, "No results for this query")
+                
         except:
-            self.report({"ERROR"}, "No results for query")
+            self.report({"ERROR"}, "something went wrong, check your query")
         
         return {"FINISHED"}
      
